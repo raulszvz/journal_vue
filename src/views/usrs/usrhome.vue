@@ -32,6 +32,14 @@
                                             <v-text-field label="Coautor" v-model="editedItem.coauthor2"></v-text-field>
                                         </v-flex>
                                     </v-layout>
+                                    <v-layout row wrap>
+                                        <v-flex xs6>
+                                            <v-combobox v-model="select1" :items="opciones1" label="Modalidad"></v-combobox>
+                                        </v-flex>
+                                        <v-flex xs6>
+                                            <v-combobox v-model="select2" :items="opciones2" label="Tema"></v-combobox>
+                                        </v-flex>
+                                    </v-layout>
                                     <v-layout row wrap  align-center justify-space-between fill-height>
                                         <v-flex xs2>
                                             <v-text-field label="Palabra clave" v-model="editedItem.keyword1"></v-text-field>
@@ -56,7 +64,7 @@
                                     </v-layout>-->
                                     <v-layout row wrap>
                                         <v-flex xs12>
-                                            <v-card>
+                                            <v-card color="primary">
                                               <v-toolbar color="primary" dark card>
                                                 <v-toolbar-title>
                                                   Cargar Archivo
@@ -66,7 +74,6 @@
                                                 <v-btn @click.native="selectFile" v-if="!uploadEnd && !uploading"> Subir archivo </v-btn>
                                                 {{ fileName }}
                                                 <input style="display: none" id="files" type="file" name="file" ref="uploadInput" accept=".pdf" :multiple="false" @change="detectFiles($event)" />
-                                                <!--<v-progress-circular v-if="uploading && !uploadEnd" :size="100" :width="15" :rotate="360" :value="progressUpload" color="primary"></v-progress-circular>-->
                                               </v-card-text>
                                             </v-card>
                                         </v-flex>   
@@ -82,14 +89,25 @@
                         </v-card>
                     </v-dialog>
                     </v-toolbar>
+
+                    <v-dialog v-model="dialogView">
+                      <template>
+                        <v-card>
+                        <v-card-text>
+                        <pdf src="https://sci2s.ugr.es/sites/default/files/files/Teaching/GraduatesCourses/Bioinformatica/Tema%2006%20-%20AGs%20I.pdf" :page="1">
+                        </pdf>
+                        </v-card-text>
+                        </v-card>
+                      </template>
+                    </v-dialog>
                     
                     <v-data-table :headers="headers" :items="abstracts" hide-actions :pagination.sync="pagination" class="elevation-1">
                         <template v-slot:items="props">
+                            <td class="justify-center"><v-checkbox v-model="props.selected" primary hide-details></v-checkbox></td>
                             <td class="text-xs-center">{{ props.item.title }}</td>
-                            <td class="text-xs-center">{{ props.item.date.seconds/1000 }}</td>
                             <td class="text-xs-center">{{ props.item.id }}</td>
                             <td class="justify-center">
-                                <!--<v-icon small @click="editItem(props.item)">visibility</v-icon>-->
+                                <v-icon small @click="dialogView=true">visibility</v-icon>
                                 <v-icon small @click="editItem(props.item), guardar=true">edit</v-icon>
                                 <v-icon small @click="deleteItem(props.item)">delete</v-icon>
                             </td>
@@ -113,10 +131,15 @@
   import { auth ,db, storage } from '@/firebase'
   import { mapMutations } from 'vuex'
   import uuidv4 from 'uuid/v4'
+  import pdf from 'pdfvuer'
 
   export default {
+    components: {
+      pdf
+    },
     data: () => ({
       dialog: false,
+      dialogView: false,
       pagination: {},
       guardar: false,
       progressUpload: 0,
@@ -127,9 +150,38 @@
       uploadEnd: false,
       downloadURL: '',
       user: '',
+      opciones1: [
+        'Contribución oral',
+        'Cartel',
+        'Simposio'
+      ],
+      opciones2: [
+        'Anatomía',
+        'Biogeografía',
+        'Bioquimica',
+        'Briología',
+        'Conservación',
+        'Ecología',
+        'Etnobotánica',
+        'Evolución',
+        'Ficología',
+        'Filogeografía',
+        'Fisiología',
+        'Fitoquímica',
+        'Floristica',
+        'Genética',
+        'Historia',
+        'Liquenología',
+        'Micología',
+        'Morfología',
+        'Nomenclatura',
+        'Palinología',
+        'Sistematica filogenética',
+        'Taxonomía'
+      ],
       headers: [
+        { text: 'Aceptación', align: 'center', sortable: false,},
         { text: 'Titulo', align: 'center', sortable: true, value: 'title'},
-        { text: 'Fecha', align: 'center', value: 'date', sortable: false },
         { text: 'Autor', align: 'center', value: 'author', sortable: false },
         { text: 'Acciones', value: 'title', sortable: false }
       ],

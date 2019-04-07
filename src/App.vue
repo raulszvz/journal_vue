@@ -51,7 +51,7 @@
 
     </v-navigation-drawer>
     <v-toolbar color="primary" dark app>
-      <v-toolbar-side-icon @click="menu = !menu"></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click="menu = !menu">Menu</v-toolbar-side-icon>
       <v-toolbar-title @click="componenteActual = 'home'" class="headline logo">
         <span>{{ title }}</span>
       </v-toolbar-title>
@@ -113,7 +113,7 @@ export default {
   name: 'App',
   data () {
     return {
-      title: 'Botanica UAA',
+      title: 'XXI Congreso Mexicano de Botánica',
       menu: false
     }
   },

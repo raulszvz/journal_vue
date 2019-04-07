@@ -33,20 +33,6 @@
                     </v-flex>
                 </v-layout>
                 <v-layout row wrap>
-                    <v-flex xs3>
-                        <v-text-field label="Calle" v-model="form.street" :error-messages="erroresStreet" @blur="$v.form.street.$touch()"></v-text-field>
-                    </v-flex>
-                    <v-flex xs3>
-                        <v-text-field label="Número" v-model="form.number" :error-messages="erroresNumber" @blur="$v.form.number.$touch()"></v-text-field>
-                    </v-flex>
-                    <v-flex xs3>
-                        <v-text-field label="Colonia" v-model="form.colony" :error-messages="erroresColony" @blur="$v.form.colony.$touch()"></v-text-field>
-                    </v-flex>
-                    <v-flex xs3>
-                        <v-text-field label="CP" v-model="form.zipC" :error-messages="erroresZipC" @blur="$v.form.zipC.$touch()"></v-text-field>
-                    </v-flex>
-                </v-layout>
-                <v-layout row wrap>
                     <v-flex xs4>
                         <v-text-field label="Municipio" v-model="form.municipality" :error-messages="erroresMunicipality" @blur="$v.form.municipality.$touch()"></v-text-field>
                     </v-flex>
@@ -95,10 +81,6 @@ export default {
         pass2:'',
         name:'',
         institution:'',
-        street:'',
-        number:'',
-        colony:'',
-        zipC:'',
         municipality:'',
         state:'',
         country:'',
@@ -124,18 +106,6 @@ export default {
         required
       },
       institution:{
-        required
-      },
-      street:{
-        required
-      },
-      number:{
-        required
-      },
-      colony:{
-        required
-      },
-      zipC:{
         required
       },
       municipality:{
@@ -196,10 +166,6 @@ export default {
           uid,
           name: this.form.name,
           institution: this.form.institution,
-          street: this.form.street,
-          number: this.form.number,
-          colony: this.form.colony,
-          zipC: this.form.zipC,
           municipality: this.form.municipality,
           state: this.form.state,
           country: this.form.country,
@@ -248,30 +214,6 @@ export default {
       if(!this.$v.form.institution.$dirty){ return institution }
       if(!this.$v.form.institution.required){ institution.push('Ingresa tu institución.') }
       return institution
-    },
-    erroresStreet(){
-      let street = []
-      if(!this.$v.form.street.$dirty){ return street }
-      if(!this.$v.form.street.required){ street.push('Ingresa tu calle.') }
-      return street
-    },
-    erroresNumber(){
-      let number = []
-      if(!this.$v.form.number.$dirty){ return number }
-      if(!this.$v.form.number.required){ number.push('Ingresa el número de tu casa.') }
-      return number
-    },
-    erroresZipC(){
-      let zipC = []
-      if(!this.$v.form.zipC.$dirty){ return zipC }
-      if(!this.$v.form.zipC.required){ zipC.push('Ingresa tu codigo postal.') }
-      return zipC
-    },
-    erroresColony(){
-      let colony = []
-      if(!this.$v.form.colony.$dirty){ return colony }
-      if(!this.$v.form.colony.required){ colony.push('Ingresa tu colonia.') }
-      return colony
     },
     erroresMunicipality(){
       let municipality = []
