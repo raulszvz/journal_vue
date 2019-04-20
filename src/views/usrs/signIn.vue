@@ -31,6 +31,9 @@
                     <v-flex xs12>
                         <v-text-field label="Institución" v-model="form.institution" :error-messages="erroresInstitution" @blur="$v.form.institution.$touch()"></v-text-field>
                     </v-flex>
+                    <v-flex xs12>
+                        <v-combobox v-model="form.grado" :items="opciones" label="Grado"></v-combobox>
+                    </v-flex>
                 </v-layout>
                 <v-layout row wrap>
                     <v-flex xs4>
@@ -75,12 +78,19 @@ import { auth, db } from '@/firebase'
 export default {
   data() {
     return {
+      opciones: [
+        'Licenciatura',
+        'Especialidad',
+        'Maestria',
+        'Doctorado'
+      ],
       form: {
         email:'',
         pass:'',
         pass2:'',
         name:'',
         institution:'',
+        grado:'',
         municipality:'',
         state:'',
         country:'',
@@ -106,6 +116,9 @@ export default {
         required
       },
       institution:{
+        required
+      },
+      grado:{
         required
       },
       municipality:{
@@ -166,10 +179,13 @@ export default {
           uid,
           name: this.form.name,
           institution: this.form.institution,
+          grado: this.form.grado,
           municipality: this.form.municipality,
           state: this.form.state,
           country: this.form.country,
-          phone: this.form.phone    
+          phone: this.form.phone,
+          pay:'',
+          payURL:''    
       }
 
         await db.collection('usr')

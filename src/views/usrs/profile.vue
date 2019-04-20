@@ -46,11 +46,11 @@
                       <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn color="blue darken-1" flat @click="close">Cancelar</v-btn>
-                        <v-btn color="blue darken-1" flat @click="save">Guardar</v-btn>
+                        <v-btn color="blue darken-1" flat @click="update">Guardar</v-btn>
                       </v-card-actions>
                     </v-card>
                   </v-dialog>
-                  <v-data-table class="elevation-1" :headers="headers" :items="desserts" hide-actions>
+                  <v-data-table class="elevation-1" :headers="headers" :items="user" hide-actions>
                     <template v-slot:items="props">
                       <td>{{ props.item.name }}</td>
                       <td class="text-xs-right">{{ props.item.institution }}</td>
@@ -81,9 +81,20 @@
                     </v-toolbar-title>        
                   </v-toolbar>
                   <v-card-text>  
-                    <v-btn @click.native="selectFile" v-if="!uploadEnd && !uploading"> Subir archivo </v-btn>
-                      {{ fileName }}
-                    <input style="display: none" id="files" type="file" name="file" ref="uploadInput" accept=".pdf" :multiple="false" @change="detectFiles($event)" />
+                    <template>
+                      <img :src="imgURL" width="100%" />
+                      <div>
+                        <v-btn @click.native="selectFile" v-if="!uploadEnd && !uploading && imgURL == ''">Agregar comprobante de pago
+                          <v-icon right aria-hidden="true">add_a_photo</v-icon>
+                        </v-btn>
+                        <input id="files" type="file" name="file" ref="uploadInput" accept="image/*" :multiple="false" @change="detectFiles($event)" />
+                        <v-progress-circular v-if="uploading && !uploadEnd" :size="100" :width="15" :rotate="360" :value="progressUpload" color="primary">%</v-progress-circular>
+                        <img v-if="uploadEnd" :src="downloadURL" width="100%" />
+                        <!--<div v-if="uploadEnd">
+                          <v-btn class="ma-0" dark small color="error" @click="deleteImage()">Delete</v-btn>
+                        </div>-->
+                      </div>
+                    </template>
                   </v-card-text>
                 </v-card>
               </v-flex>   
@@ -106,12 +117,20 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { auth ,db, storage } from '@/firebase'
+import { mapState, mapMutations } from 'vuex'
 //import store from '@/store'
 
 export default {
     data: () => ({
       dialog: false,
+      progressUpload: 0,
+      fileName: '',
+      uploadTask: '',
+      uploading: false,
+      uploadEnd: false,
+      imgURL:'',
+      downloadURL: '',
       headers: [
         { text: 'Nombre', align: 'center', sortable: false, value: 'name'},
         { text: 'Institución', align: 'center', sortable: false, value: 'institution'},
@@ -121,7 +140,7 @@ export default {
         { text: 'Telefono', align: 'center', sortable: false, value: 'phone'},
         { text: 'Editar', value: 'name', sortable: false }
       ],
-      desserts: [],
+      user: [],
       editedIndex: -1,
       editedItem: {
         name: '',
@@ -151,6 +170,20 @@ export default {
     watch: {
       dialog (val) {
         val || this.close()
+      },
+
+      uploadTask: function () {
+        this.uploadTask.on('state_changed', sp => {
+          this.progressUpload = Math.floor(sp.bytesTransferred / sp.totalBytes * 100)
+        },
+        null,
+        () => {
+          this.uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+            this.uploadEnd = true
+            this.downloadURL = downloadURL
+            this.$emit('downloadURL', downloadURL)
+          })
+        })
       }
     },
 
@@ -159,21 +192,60 @@ export default {
     },
 
     methods: {
+      ...mapMutations(['mostrarOcupado', 'ocultarOcupado', 'mostrarExito', 'mostrarError','mostrarAdvertencia']),
+
+      selectFile () {
+        this.$refs.uploadInput.click()
+      },
+    
+      detectFiles (e) {
+        let fileList = e.target.files || e.dataTransfer.files
+        Array.from(Array(fileList.length).keys()).map(x => {
+          this.upload(fileList[x])
+        })
+      },
+      
+      async updatePay(){
+        
+      },
+
+      async upload (file) {
+        let uid = auth.currentUser.uid
+        this.fileName = file.name
+        this.uploading = true
+        this.uploadTask = storage.ref(`pay/${uid}`).put(file)
+        let url = await this.uploadTask.snapshot.ref.getDownloadURL()
+        let pago = {pay:1, payURL:url}
+        await db.collection('usr').doc(uid).update(pago)
+      },
+      
+      deleteImage () {
+        let uid = auth.currentUser.uid
+        storage.ref(`pay/${uid}`).delete().then(() => {
+          this.uploading = false
+          this.uploadEnd = false
+          this.downloadURL = ''
+        })
+        .catch((error) => {
+          
+        })
+      },
+
+      async consultarIMG(){
+        let uid = auth.currentUser.uid
+        let doc = await db.collection('usr').doc(uid).get()
+        this.user.push(doc.data())
+        let auxUsr = this.user[0]
+        this.imgURL = auxUsr.payURL
+      },
+
       initialize () {
-        this.desserts = [
-          {
-            name: 'Raúl Sánchez Vázquez',
-            institution: 'UAA',
-            municipality: 'Jesús María',
-            state: 'Aguascalientes',
-            country: 'México',
-            phone: '449109792',
-          },
-        ]
+        this.consultarIMG()
+        this.user = []
       },
 
       editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.user.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true
       },
@@ -185,9 +257,34 @@ export default {
           this.editedIndex = -1
         }, 300)
       },
-    },
-  /*computed: {
-    ...mapState('sesion', ['usuario'])
-  }*/
+
+      async update () {
+        this.mostrarOcupado({ titulo: 'Actualizando', mensaje: 'Espere mientras actualizamos su entrada...' })
+        let uid = auth.currentUser.uid
+        let perfil = {
+            name:this.editedItem.name,
+            institution:this.editedItem.institution,
+            municipality:this.editedItem.municipality,
+            state:this.editedItem.state,
+            country:this.editedItem.country,
+            phone:this.editedItem.phone
+        }
+        await db.collection('usr').doc(uid).update(perfil)
+        this.ocultarOcupado()
+        this.mostrarExito('Perfil actualizado')
+        this.close()
+        this.initialize()
+      }
+    }
 }
 </script>
+
+<style>
+.progress-bar {
+  margin: 10px 0;
+}
+input[type="file"] {
+  position: absolute;
+  clip: rect(0,0,0,0);
+}
+</style>

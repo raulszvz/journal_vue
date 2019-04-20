@@ -5,7 +5,7 @@
             <template>
                 <div>
                     <v-toolbar flat color="white">
-                    <v-toolbar-title>Resumenes</v-toolbar-title>
+                    <v-toolbar-title>Tesís</v-toolbar-title>
                     <v-divider class="mx-2" inset vertical></v-divider>
                     <v-spacer></v-spacer>
                     <v-dialog v-model="dialog" max-width="700px">
@@ -25,14 +25,49 @@
                                         </v-flex>
                                     </v-layout>
                                     <v-layout row wrap>
-                                        <v-flex xs6>
-                                            <v-text-field label="Coautor" v-model="editedItem.coauthor1"></v-text-field>
-                                        </v-flex>
-                                        <v-flex xs6>
-                                            <v-text-field label="Coautor" v-model="editedItem.coauthor2"></v-text-field>
+                                        <v-flex xs12>
+                                            <v-text-field label="Director de tesís" v-model="editedItem.coauthor1"></v-text-field>
                                         </v-flex>
                                     </v-layout>
                                     <v-layout row wrap>
+                                        <v-flex xs12>
+                                            <v-text-field label="Certamenes en que ha participado la tesís" v-model="editedItem.coauthor1"></v-text-field>
+                                        </v-flex>
+                                    </v-layout>
+                                    <v-layout row wrap>
+                                        <v-flex xs12>
+                                            <v-menu ref="startMenu" v-model="startMenu" :close-on-content-click="false" :nudge-right="40" :return-value.sync="start" transition="scale-transition" min-width="290px" lazy offset-y full-width>
+                                              <template v-slot:activator="{ on }">
+                                                <v-text-field v-model="start" label="Fecha de inicio" prepend-icon="event" readonly v-on="on"></v-text-field>
+                                              </template>
+                                              <v-date-picker v-model="start" no-title scrollable>
+                                                <v-spacer></v-spacer>
+                                                <v-btn flat color="primary" @click="startMenu = false">Cancel</v-btn>
+                                                <v-btn flat color="primary" @click="$refs.startMenu.save(start)">OK</v-btn>
+                                              </v-date-picker>
+                                            </v-menu>
+                                        </v-flex>
+                                    </v-layout>
+                                    <v-layout row wrap>
+                                        <v-flex xs12>
+                                            <v-menu ref="startMenu" v-model="startMenu" :close-on-content-click="false" :nudge-right="40" :return-value.sync="start" transition="scale-transition" min-width="290px" lazy offset-y full-width>
+                                              <template v-slot:activator="{ on }">
+                                                <v-text-field v-model="start" label="Fecha final" prepend-icon="event" readonly v-on="on"></v-text-field>
+                                              </template>
+                                              <v-date-picker v-model="start" no-title scrollable>
+                                                <v-spacer></v-spacer>
+                                                <v-btn flat color="primary" @click="startMenu = false">Cancel</v-btn>
+                                                <v-btn flat color="primary" @click="$refs.startMenu.save(start)">OK</v-btn>
+                                              </v-date-picker>
+                                            </v-menu>
+                                        </v-flex>
+                                    </v-layout>
+                                    <v-layout row wrap>
+                                        <v-flex xs12>
+                                            <v-text-field label="Articulos derivados de la tesís" v-model="editedItem.coauthor1"></v-text-field>
+                                        </v-flex>
+                                    </v-layout>
+                                    <!--<v-layout row wrap>
                                         <v-flex xs6>
                                             <v-combobox v-model="select1" :items="opciones1" label="Modalidad"></v-combobox>
                                         </v-flex>
@@ -57,7 +92,7 @@
                                             <v-text-field label="Palabra clave" v-model="editedItem.keyword5"></v-text-field>
                                         </v-flex>
                                     </v-layout>
-                                    <!--<v-layout row wrap>
+                                    <v-layout row wrap>
                                         <v-flex xs12>
                                             <markdown-editor v-model="editedItem.content" ref="markdownEditor"></markdown-editor>
                                         </v-flex>   
@@ -67,13 +102,29 @@
                                             <v-card color="primary">
                                               <v-toolbar color="primary" dark card>
                                                 <v-toolbar-title>
-                                                  Cargar Archivo
+                                                  Tesís
                                                 </v-toolbar-title>        
                                               </v-toolbar>
                                               <v-card-text>  
-                                                <v-btn @click.native="selectFile" v-if="!uploadEnd && !uploading"> Subir archivo </v-btn>
+                                                <v-btn @click.native="selectFile" v-if="!uploadEnd && !uploading"> Cargar archivo </v-btn>
                                                 {{ fileName }}
                                                 <input style="display: none" id="files" type="file" name="file" ref="uploadInput" accept=".pdf" :multiple="false" @change="detectFiles($event)" />
+                                              </v-card-text>
+                                            </v-card>
+                                        </v-flex>   
+                                    </v-layout>
+                                    <v-layout row wrap>
+                                        <v-flex xs12>
+                                            <v-card color="primary">
+                                              <v-toolbar color="primary" dark card>
+                                                <v-toolbar-title>
+                                                  Acta de examen
+                                                </v-toolbar-title>        
+                                              </v-toolbar>
+                                              <v-card-text>  
+                                                <v-btn @click.native="selectFile2" v-if="!uploadEnd && !uploading"> Cargar archivo </v-btn>
+                                                {{ fileName2 }}
+                                                <input style="display: none" id="files2" type="file" name="file2" ref="uploadInput2" accept=".pdf" :multiple="false" @change="detectFiles($event)" />
                                               </v-card-text>
                                             </v-card>
                                         </v-flex>   
@@ -94,7 +145,7 @@
                       <template>
                         <v-card>
                         <v-card-text>
-                        <pdf src="https://sci2s.ugr.es/sites/default/files/files/Teaching/GraduatesCourses/Bioinformatica/Tema%2006%20-%20AGs%20I.pdf" :page="1">
+                        <pdf :src="editedItem.file" :page="1">
                         </pdf>
                         </v-card-text>
                         </v-card>
@@ -103,7 +154,8 @@
                     
                     <v-data-table :headers="headers" :items="abstracts" hide-actions :pagination.sync="pagination" class="elevation-1">
                         <template v-slot:items="props">
-                            <td class="justify-center"><v-checkbox v-model="props.selected" primary hide-details></v-checkbox></td>
+                            <td class="justify-center"><v-checkbox v-model="props.verdadero" color="blue" hide-details></v-checkbox></td>
+                            <td class="justify-center"><v-checkbox v-model="props.falso" color="red" hide-details></v-checkbox></td>
                             <td class="text-xs-center">{{ props.item.title }}</td>
                             <td class="text-xs-center">{{ props.item.id }}</td>
                             <td class="justify-center">
@@ -150,6 +202,7 @@
       uploadEnd: false,
       downloadURL: '',
       user: '',
+      pdfURL: '',
       opciones1: [
         'Contribución oral',
         'Cartel',
@@ -180,7 +233,8 @@
         'Taxonomía'
       ],
       headers: [
-        { text: 'Aceptación', align: 'center', sortable: false,},
+        { text: 'Aceptado', align: 'center', sortable: false,},
+        { text: 'Rechazado', align: 'center', sortable: false,},
         { text: 'Titulo', align: 'center', sortable: true, value: 'title'},
         { text: 'Autor', align: 'center', value: 'author', sortable: false },
         { text: 'Acciones', value: 'title', sortable: false }
@@ -269,8 +323,10 @@
         //})
       },  
       async consultarResumen(){
+        let uid = auth.currentUser.uid
         let docs = await db.collection('abstract').get()
         docs.forEach(doc => {
+          if(doc.data().uid == uid)
           this.abstracts.push(doc.data())
         })
         if (this.abstracts.length == 0) {
