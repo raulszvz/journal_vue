@@ -68,7 +68,7 @@
            </v-layout>
           </template>
         </v-expansion-panel-content>
-        <v-expansion-panel-content>
+        <!--<v-expansion-panel-content>
           <template v-slot:header>
             <div>Comprobante de pago</div>
           </template>
@@ -90,16 +90,16 @@
                         <input id="files" type="file" name="file" ref="uploadInput" accept="image/*" :multiple="false" @change="detectFiles($event)" />
                         <v-progress-circular v-if="uploading && !uploadEnd" :size="100" :width="15" :rotate="360" :value="progressUpload" color="primary">%</v-progress-circular>
                         <img v-if="uploadEnd" :src="downloadURL" width="100%" />
-                        <!--<div v-if="uploadEnd">
+                        <div v-if="uploadEnd">
                           <v-btn class="ma-0" dark small color="error" @click="deleteImage()">Delete</v-btn>
-                        </div>-->
+                        </div>
                       </div>
                     </template>
                   </v-card-text>
                 </v-card>
               </v-flex>   
             </v-layout>
-        </v-expansion-panel-content>
+        </v-expansion-panel-content>-->
         <v-expansion-panel-content>
           <template v-slot:header>
             <div>Constancia</div>

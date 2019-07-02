@@ -113,7 +113,7 @@ export default {
   name: 'App',
   data () {
     return {
-      title: 'XXI Congreso Mexicano de Botánica',
+      title: 'Certamen de tesis',
       menu: false
     }
   },

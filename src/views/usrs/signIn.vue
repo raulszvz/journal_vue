@@ -184,8 +184,7 @@ export default {
           state: this.form.state,
           country: this.form.country,
           phone: this.form.phone,
-          pay:'',
-          payURL:''    
+          usrType: 0    
       }
 
         await db.collection('usr')
