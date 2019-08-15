@@ -137,10 +137,10 @@
                               <v-flex xs12>
                                 <p>Pregunta central clara:</p>
                                 <v-radio-group v-model="uno" row>
-                                  <v-radio label="Excelente" value="4"></v-radio>
-                                  <v-radio label="Bueno" value="3"></v-radio>
-                                  <v-radio label="Regular" value="2"></v-radio>
-                                  <v-radio label="Malo" value="1"></v-radio>
+                                  <v-radio label="Excelente" value="Excelente"></v-radio>
+                                  <v-radio label="Bueno" value="Bueno"></v-radio>
+                                  <v-radio label="Regular" value="Regular"></v-radio>
+                                  <v-radio label="Malo" value="Malo"></v-radio>
                                 </v-radio-group>
                               </v-flex>
                             </v-layout>
@@ -148,10 +148,10 @@
                               <v-flex xs12>
                                 <p>Objetivo justificado:</p>
                                 <v-radio-group v-model="dos" row>
-                                  <v-radio label="Excelente" value="4"></v-radio>
-                                  <v-radio label="Bueno" value="3"></v-radio>
-                                  <v-radio label="Regular" value="2"></v-radio>
-                                  <v-radio label="Malo" value="1"></v-radio>
+                                  <v-radio label="Excelente" value="Excelente"></v-radio>
+                                  <v-radio label="Bueno" value="Bueno"></v-radio>
+                                  <v-radio label="Regular" value="Regular"></v-radio>
+                                  <v-radio label="Malo" value="Malo"></v-radio>
                                 </v-radio-group>
                               </v-flex>
                             </v-layout>
@@ -159,10 +159,10 @@
                               <v-flex xs12>
                                 <p>Presentación del documento:</p>
                                 <v-radio-group v-model="tres" row>
-                                  <v-radio label="Excelente" value="4"></v-radio>
-                                  <v-radio label="Bueno" value="3"></v-radio>
-                                  <v-radio label="Regular" value="2"></v-radio>
-                                  <v-radio label="Malo" value="1"></v-radio>
+                                  <v-radio label="Excelente" value="Excelente"></v-radio>
+                                  <v-radio label="Bueno" value="Bueno"></v-radio>
+                                  <v-radio label="Regular" value="Regular"></v-radio>
+                                  <v-radio label="Malo" value="Malo"></v-radio>
                                 </v-radio-group>
                               </v-flex>
                             </v-layout>
@@ -170,10 +170,10 @@
                               <v-flex xs12>
                                 <p>Originalidad del tema tratado:</p>
                                 <v-radio-group v-model="cuatro" row>
-                                  <v-radio label="Excelente" value="4"></v-radio>
-                                  <v-radio label="Bueno" value="3"></v-radio>
-                                  <v-radio label="Regular" value="2"></v-radio>
-                                  <v-radio label="Malo" value="1"></v-radio>
+                                  <v-radio label="Excelente" value="Excelente"></v-radio>
+                                  <v-radio label="Bueno" value="Bueno"></v-radio>
+                                  <v-radio label="Regular" value="Regular"></v-radio>
+                                  <v-radio label="Malo" value="Malo"></v-radio>
                                 </v-radio-group>
                               </v-flex>
                             </v-layout>
@@ -181,10 +181,10 @@
                               <v-flex xs12>
                                 <p>Marco teorico:</p>
                                 <v-radio-group v-model="cinco" row>
-                                  <v-radio label="Excelente" value="4"></v-radio>
-                                  <v-radio label="Bueno" value="3"></v-radio>
-                                  <v-radio label="Regular" value="2"></v-radio>
-                                  <v-radio label="Malo" value="1"></v-radio>
+                                  <v-radio label="Excelente" value="Excelente"></v-radio>
+                                  <v-radio label="Bueno" value="Bueno"></v-radio>
+                                  <v-radio label="Regular" value="Regular"></v-radio>
+                                  <v-radio label="Malo" value="Malo"></v-radio>
                                 </v-radio-group>
                               </v-flex>
                             </v-layout>
@@ -192,10 +192,10 @@
                               <v-flex xs12>
                                 <p>Métodos:</p>
                                 <v-radio-group v-model="seis" row>
-                                  <v-radio label="Excelente" value="4"></v-radio>
-                                  <v-radio label="Bueno" value="3"></v-radio>
-                                  <v-radio label="Regular" value="2"></v-radio>
-                                  <v-radio label="Malo" value="1"></v-radio>
+                                  <v-radio label="Excelente" value="Excelente"></v-radio>
+                                  <v-radio label="Bueno" value="Bueno"></v-radio>
+                                  <v-radio label="Regular" value="Regular"></v-radio>
+                                  <v-radio label="Malo" value="Malo"></v-radio>
                                 </v-radio-group>
                               </v-flex>
                             </v-layout>
@@ -203,11 +203,10 @@
                               <v-flex xs12>
                                 <p>Resultados y discusión:</p>
                                 <v-radio-group v-model="siete" row>
-                                  <v-radio label="Excelente" value="4"></v-radio>
-                                  <v-radio label="Bueno" value="3"></v-radio>
-                                  <v-radio label="Regular" value="2"></v-radio>
-                                  <v-radio label="Malo" value="1"></v-radio>
-                                </v-radio-group>
+                                  <v-radio label="Excelente" value="Excelente"></v-radio>
+                                  <v-radio label="Bueno" value="Bueno"></v-radio>
+                                  <v-radio label="Regular" value="Regular"></v-radio>
+                                  <v-radio label="Malo" value="Malo"></v-radio>                                </v-radio-group>
                               </v-flex>
                             </v-layout>
                           </v-container>
@@ -217,10 +216,10 @@
                               <v-flex xs12>
                                 <p>Calidad de la tesis:</p>
                                 <v-radio-group v-model="ocho" row>
-                                  <v-radio label="Excelente" value="4"></v-radio>
-                                  <v-radio label="Bueno" value="3"></v-radio>
-                                  <v-radio label="Regular" value="2"></v-radio>
-                                  <v-radio label="Malo" value="1"></v-radio>
+                                  <v-radio label="Excelente" value="Excelente"></v-radio>
+                                  <v-radio label="Bueno" value="Bueno"></v-radio>
+                                  <v-radio label="Regular" value="Regular"></v-radio>
+                                  <v-radio label="Malo" value="Malo"></v-radio>
                                 </v-radio-group>
                               </v-flex>
                             </v-layout>
@@ -228,30 +227,27 @@
                               <v-flex xs12>
                                 <p>Relevancía cientifica:</p>
                                 <v-radio-group v-model="nueve" row>
-                                  <v-radio label="Excelente" value="4"></v-radio>
-                                  <v-radio label="Bueno" value="3"></v-radio>
-                                  <v-radio label="Regular" value="2"></v-radio>
-                                  <v-radio label="Malo" value="1"></v-radio>
+                                  <v-radio label="Excelente" value="Excelente"></v-radio>
+                                  <v-radio label="Bueno" value="Bueno"></v-radio>
+                                  <v-radio label="Regular" value="Regular"></v-radio>
+                                  <v-radio label="Malo" value="Malo"></v-radio>
                                 </v-radio-group>
                               </v-flex>
                             </v-layout>
                           </v-container>
                           <v-container grid-list-md>
                             <v-flex xs12>
-                              <v-text-field label="¿Cuánto tiempo llevó al estudiante el desarrollo de la tesis?" v-model="diez"></v-text-field>
+                              <v-textarea label="¿Existen artículos publicados derivados de la tesis?" v-model="diez"></v-textarea>
                             </v-flex>
                             <v-flex xs12>
-                              <v-text-field label="¿Existen artículos publicados derivados de la tesis?" v-model="once"></v-text-field>
+                              <v-textarea label="¿Es la tesis merecedora de alguno de los primeros lugares? Argumente las características de la tesis que la hace merecedora de tal lugar." v-model="once"></v-textarea>
                             </v-flex>
                             <v-flex xs12>
-                              <v-text-field label="¿Es la tesis merecedora de alguno de los primeros lugares? Argumente las características de la tesis que la hace merecedora de tal lugar." v-model="doce"></v-text-field>
-                            </v-flex>
-                            <v-flex xs12>
-                              <v-text-field label="Observaciones adicionales que deben ser tomadas en cuenta para considerar esta tesis entre las ganadoras:" v-model="trece"></v-text-field>
+                              <v-textarea label="Observaciones adicionales que deben ser tomadas en cuenta para considerar esta tesis entre las ganadoras:" v-model="doce"></v-textarea>
                             </v-flex>
                           </v-container>
                         </v-card-text>
-                        <v-card-actions>
+                        <v-card-actions>  
                           <v-btn color="blue darken-1" v-if="cal" flat @click="evaluacion">Guardar</v-btn>
                           <v-btn color="red darken-1" v-if="cal" flat @click="close">Cancelar</v-btn>
                         </v-card-actions>
@@ -285,29 +281,32 @@
                             <p><b>Asignación de revisores</b></p>
                             <v-layout row wrap>
                               <v-flex xs12>
-                                <v-combobox v-model="select1" :items="opciones1" label="Revisor 1"></v-combobox>    
+                                <v-combobox v-model="rev1" :items="revNAME" label="Revisor 1"></v-combobox>    
                               </v-flex>
                               <v-flex xs12>
-                                <v-combobox v-model="select1" :items="opciones1" label="Revisor 2"></v-combobox>    
+                                <v-combobox v-model="rev2" :items="revNAME" label="Revisor 2"></v-combobox>    
+                              </v-flex>
+                              <v-flex xs12>
+                                <v-combobox v-model="rev3" :items="revNAME" label="Revisor 3"></v-combobox>    
                               </v-flex>
                             </v-layout>
                           </v-container>
                         </v-card-text>
                         <v-card-actions>
-                          <v-btn color="blue darken-1" v-if="cal" flat @click="evaluacion">Guardar</v-btn>
+                          <v-btn color="blue darken-1" v-if="cal" flat @click="reviserUpdate">Guardar</v-btn>
                           <v-btn color="red darken-1" v-if="cal" flat @click="dialogRevisor=false">Cancelar</v-btn>
                         </v-card-actions>
                       </v-card>
                     </v-dialog> 
 
-                    <v-data-table :headers="headers" :items="abstracts" hide-actions :pagination.sync="pagination" class="elevation-1">
+                    <!--<v-data-table :headers="headers" :items="abstracts" hide-actions :pagination.sync="pagination" class="elevation-1">-->
+                    <v-data-table :headers="headers" :items="abstracts" hide-actions  class="elevation-1">  
                         <template v-slot:items="props">
                             <td class="text-xs-center">{{ props.item.title }}</td>
                             <td class="text-xs-center">{{ props.item.author }}</td>
-                            <td class="text-xs-center">{{ props.item.author }}</td>
                             <td class="justify-center">
                                 <v-icon small v-if="usrType==1" @click="editItemTopic(props.item)">assignment</v-icon>
-                                <v-icon small v-if="usrType==1" @click="props.item, dialogRevisor=true">assignment_ind</v-icon>
+                                <v-icon small v-if="usrType==1" @click="editItemTopic(props.item), dialogRevisor=true, dialogTema=false">assignment_ind</v-icon>
                                 <v-icon small v-if="usrType==1 || usrType==2" @click="editItemEval(props.item)">check_box</v-icon>
                                 <v-icon small v-if="usrType==0" @click="editItem(props.item), guardar=true">edit</v-icon>
                                 <v-icon small v-if="usrType==0" @click="deleteItem(props.item)">delete</v-icon>
@@ -321,9 +320,9 @@
                           <!--<v-btn color="primary" @click="initialize">Reset</v-btn>-->
                         </template>
                     </v-data-table>
-                    <div class="text-xs-center pt-2">
-                        <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
-                    </div>
+                    <!--<div class="text-xs-center pt-2">
+                        <v-pagination v-model="pagination.page" :length=1></v-pagination>
+                    </div>-->
                 </div>
             </template>
         </v-card>
@@ -336,6 +335,8 @@
   import { mapMutations } from 'vuex'
   import uuidv4 from 'uuid/v4'
   import pdf from 'pdfvuer'
+  import nodemailer from 'nodemailer'
+  //let nodemailer = require('nodemailer')
 
   export default {
     components: {
@@ -344,6 +345,7 @@
     data: () => ({
       topic: '',
       usrType: '',
+      nameCurrentUsr:'',
       dialog: false,
       dialogView: false,
       dialogTema: false,
@@ -387,10 +389,13 @@
       headers: [
         { text: 'Titulo', align: 'center', sortable: true, value: 'title'},
         { text: 'Autor', align: 'center', value: 'author', sortable: false },
-        { text: 'Grado', align: 'center', value: 'grado', sortable: true },
         { text: 'Acciones', value: 'title', sortable: false }
       ],
-      revisores:[],
+      rev1:'',
+      rev2:'',
+      rev3:'',
+      revID:[],
+      revNAME:[],
       abstracts: [],
       editedIndex: -1,
       editedItem: {
@@ -430,7 +435,7 @@
           this.pagination.totalItems == null
         ) return 0
 
-        return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
+        //return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
       }
     },
 
@@ -460,6 +465,30 @@
     methods: {
       ...mapMutations(['mostrarOcupado', 'ocultarOcupado', 'mostrarExito', 'mostrarError','mostrarAdvertencia']),
       
+      sendCorreo(){
+        let transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: 'botanicauaa@gmail.com',
+            pass: 'Ra113581321'
+          }
+        })
+
+        let mailOptions = {
+          from: 'botanicauaa@gmail.com',
+          to: 'raulsv.28@gmail.com',
+          subject: 'Sending Email using Node.js',
+          text: 'That was easy!'
+        }
+        
+        transporter.sendmail(mailOptions, function(error, info){
+          if (error)
+            this.mostrarExito(error)
+          else 
+            this.mostrarExito('Email sent: ' + info.response)
+        })
+      },
+
       selectFile () {
         this.$refs.uploadInput.click()
       },
@@ -499,6 +528,7 @@
         let uid = auth.currentUser.uid
         await db.collection('usr').doc(uid).get().then(doc => {
           this.usrType = doc.data().usrType
+          this.nameCurrentUsr = doc.data().name
         })
         let docs = await db.collection('tesis').get()
         if(this.usrType == 0){
@@ -514,6 +544,8 @@
         }
         else if(this.usrType == 2){
           docs.forEach(doc => {
+            this.mostrarAdvertencia(doc.data().reviser1)
+            if(doc.data().reviser1 == this.nameCurrentUsr || doc.data().reviser2 == this.nameCurrentUsr || doc.data().reviser3 == this.nameCurrentUsr)
               this.abstracts.push(doc.data())
         })
         }
@@ -524,7 +556,10 @@
 
       initialize () {
         this.consultarResumen()
+        this.asigReviser()
         this.abstracts = []
+        this.revNAME = []
+        this.revID = []
       },
     
       linkTesis(item){
@@ -537,6 +572,16 @@
 
       linkTicket(item){
         window.open(item.ticketUrl)
+      },
+
+      async asigReviser(){
+        let docs = await db.collection('usr').get()
+        docs.forEach(doc => {
+          if(doc.data().usrType == 2){
+            this.revID.push(doc.data().uid)
+            this.revNAME.push(doc.data().name)
+          }
+        })
       },
 
       async editItem (item) {
@@ -583,7 +628,7 @@
           let tesisUrl = await this.uploadTask.ref.getDownloadURL()
           this.uploadTask = await storage.ref(`tesis/${uid}/${archivoId}_test.pdf`).put(this.filePdf2[0])
           let testUrl = await this.uploadTask.ref.getDownloadURL()
-          this.uploadTask = await storage.ref(`tesis/${uid}/${archivoId}_ticket`).put(this.filePdf2[0])
+          this.uploadTask = await storage.ref(`tesis/${uid}/${archivoId}_ticket`).put(this.filePdf3[0])
           let ticketUrl = await this.uploadTask.ref.getDownloadURL()
           let resumen = {
             uid,  
@@ -600,6 +645,7 @@
             ticketUrl: ticketUrl,
             reviser1: '',
             reviser2: '',
+            reviser3: '',
             date: new Date()
         }
         await db.collection('tesis').doc(archivoId).set(resumen)
@@ -620,24 +666,24 @@
         let ref = this.editedItem.id
         let uid = auth.currentUser.uid
         this.uploading = true
-        this.uploadTask = await storage.ref(`tesis/${uid}/${ref}_tesis.pdf`).put(this.filePdf[0])
+        /*this.uploadTask = await storage.ref(`tesis/${uid}/${ref}_tesis.pdf`).put(this.filePdf[0])
         let tesisUrl = await this.uploadTask.ref.getDownloadURL()
         this.uploadTask = await storage.ref(`test/${uid}/${ref}_test.pdf`).put(this.filePdf2[0])
-        let testUrl = await this.uploadTask.ref.getDownloadURL()
-        this.uploadTask = await storage.ref(`tesis/${uid}/${ref}_ticket`).put(this.filePdf2[0])
+        let testUrl = await this.uploadTask.ref.getDownloadURL()*/
+        this.uploadTask = await storage.ref(`tesis/${uid}/${ref}_ticket`).put(this.filePdf3[0])
         let ticketUrl = await this.uploadTask.ref.getDownloadURL()
         let resumen = {
-            title: this.editedItem.title,
-            principal: this.editedItem.principal,
-            competition: this.editedItem.competition,
-            start: this.editedItem.start,
-            end: this.editedItem.end, 
-            articleRef: this.editedItem.articleRef,
-            tesisUrl: tesisUrl,
-            testUrl: testUrl,
+            //title: this.editedItem.title,
+            //principal: this.editedItem.principal,
+            //competition: this.editedItem.competition,
+            //start: this.editedItem.start,
+            //end: this.editedItem.end, 
+            //articleRef: this.editedItem.articleRef,
+            //tesisUrl: tesisUrl,
+            //testUrl: testUrl,
             ticketUrl: ticketUrl,
             tesisTopic: '',
-            date: new Date()
+            //date: new Date()
         }
         await db.collection('tesis').doc(ref).update(resumen)
         this.ocultarOcupado()
@@ -657,13 +703,40 @@
         this.initialize()
       },
 
-      async evaluacion () {
-        this.mostrarOcupado({ titulo: 'Guardando', mensaje: 'Espere mientras guardamos su entrada...' })
-        let uid = auth.currentUser.uid 
+      async reviserUpdate(){
+        this.mostrarOcupado({ titulo: 'Actualizando', mensaje: 'Espere mientras actualizamos su entrada...' })
+        //this.sendCorreo()
         let ref = this.editedItem.id
+        this.mostrarExito(this.editedItem.title)
+        await db.collection('tesis').doc(ref).update({
+          reviser1:this.rev1,
+          reviser2:this.rev2,
+          reviser3:this.rev3
+        })
+        this.ocultarOcupado()
+        this.dialogRevisor = false
+        this.mostrarExito('Entrada actualizada')
+        this.close()
+        this.initialize()
+      },
+      
+      async evaluacion () {
+        let reviserName = ''
+        let usrTesisId = ''
+        this.mostrarOcupado({ titulo: 'Guardando', mensaje: 'Espere mientras guardamos su entrada...' })
+        let reviserId = auth.currentUser.uid 
+        await db.collection('usr').doc(reviserId).get().then(doc => {
+          reviserName = doc.data().name
+          usrTesisId = doc.data().uid
+        })
+        let ref = this.editedItem.id
+        let tesisTitle = this.editedItem.title
         try {
           let ev = {
-            uid,
+            reviserName,
+            reviserId,
+            tesisTitle,
+            usrTesisId,
             1: this.uno, 
             2: this.dos,
             3: this.tres,
@@ -676,7 +749,6 @@
             10: this.diez,
             11: this.once,
             12: this.doce,
-            13: this.trece,
             date: new Date()
         }
         await db.collection('eval').doc(ref).set(ev)

@@ -32,10 +32,13 @@
                         <v-text-field label="Institución" v-model="form.institution" :error-messages="erroresInstitution" @blur="$v.form.institution.$touch()"></v-text-field>
                     </v-flex>
                     <v-flex xs12>
+                        <v-text-field label="Facultad o departamento" v-model="form.faculty" :error-messages="erroresFaculty" @blur="$v.form.faculty.$touch()"></v-text-field>
+                    </v-flex>
+                    <v-flex xs12>
                         <v-combobox v-model="form.grado" :items="opciones" label="Grado"></v-combobox>
                     </v-flex>
                 </v-layout>
-                <v-layout row wrap>
+                <!--<v-layout row wrap>
                     <v-flex xs4>
                         <v-text-field label="Municipio" v-model="form.municipality" :error-messages="erroresMunicipality" @blur="$v.form.municipality.$touch()"></v-text-field>
                     </v-flex>
@@ -45,7 +48,7 @@
                     <v-flex xs4>
                         <v-text-field label="Pais" v-model="form.country" :error-messages="erroresCountry" @blur="$v.form.country.$touch()"></v-text-field>
                     </v-flex>
-                </v-layout>
+                </v-layout>-->
                 <v-layout row wrap>
                     <v-flex xs12>
                         <v-text-field label="Telefono" @keyup.enter="login" v-model="form.phone" :error-messages="erroresPhone" @blur="$v.form.phone.$touch()"></v-text-field>
@@ -90,10 +93,11 @@ export default {
         pass2:'',
         name:'',
         institution:'',
+        faculty:'',
         grado:'',
-        municipality:'',
-        state:'',
-        country:'',
+        //municipality:'',
+        //state:'',
+        //country:'',
         phone:''
       }
     }
@@ -118,10 +122,13 @@ export default {
       institution:{
         required
       },
+      faculty:{
+        required
+      },
       grado:{
         required
       },
-      municipality:{
+      /*municipality:{
         required
       },
       state:{
@@ -129,7 +136,7 @@ export default {
       },
       country:{
         required
-      },
+      },*/
       phone:{
         required
       }
@@ -179,12 +186,13 @@ export default {
           uid,
           name: this.form.name,
           institution: this.form.institution,
+          faculty: this.form.faculty,
           grado: this.form.grado,
-          municipality: this.form.municipality,
-          state: this.form.state,
-          country: this.form.country,
+          //municipality: this.form.municipality,
+          //state: this.form.state,
+          //country: this.form.country,
           phone: this.form.phone,
-          usrType: 0    
+          usrType: 2    
       }
 
         await db.collection('usr')
@@ -229,6 +237,12 @@ export default {
       if(!this.$v.form.institution.$dirty){ return institution }
       if(!this.$v.form.institution.required){ institution.push('Ingresa tu institución.') }
       return institution
+    },
+    erroresFaculty(){
+      let faculty = []
+      if(!this.$v.form.faculty.$dirty){ return faculty }
+      if(!this.$v.form.faculty.required){ faculty.push('Ingresa tu facultad o departamento.') }
+      return faculty
     },
     erroresMunicipality(){
       let municipality = []

@@ -21,14 +21,14 @@
           </v-list-tile-content>
         </v-list-tile>
 
-        <v-list-tile v-if="!usuario" :to="{name: 'signIn'}">
+        <!--<v-list-tile v-if="!usuario" :to="{name: 'signIn'}">
           <v-list-tile-action>
             <v-icon>contact_mail</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title v-text="'Registro'"></v-list-tile-title>
           </v-list-tile-content>
-        </v-list-tile>
+        </v-list-tile>-->
 
         <v-list-tile v-if="!usuario" :to="{name: 'login'}">
           <v-list-tile-action>
@@ -117,6 +117,7 @@ export default {
       menu: false
     }
   },
+  
   computed: {
     ...mapState(['notificacion', 'ocupado']),
     ...mapState('sesion', ['usuario'])
@@ -124,6 +125,7 @@ export default {
   methods: {
     ...mapMutations(['ocultarNotificacion']),
     ...mapActions('sesion', ['cerrarSesion']),
+
     salir() {
       this.cerrarSesion()
       this.menu = false

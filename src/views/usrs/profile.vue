@@ -110,6 +110,66 @@
             </v-alert>
             </div>
         </v-expansion-panel-content>
+        <v-expansion-panel-content v-if="usrType==1">
+          <template v-slot:header>
+            <div>Inscritos</div>
+          </template>
+          <template>
+            <v-layout text-xs-center align-start justify-center>
+              <v-flex xs12>
+                <v-card>
+                  <v-data-table class="elevation-1" :headers="headers" :items="users" hide-actions>
+                    <template v-slot:items="props">
+                      <td>{{ props.item.author }}</td>
+                      <td class="text-xs-right">{{ props.item.title }}</td>
+                      <td class="text-xs-right">{{ props.item.email }}</td>
+                      <td class="text-xs-right">{{ props.item.tesisUrl }}</td>
+                      <td class="text-xs-right">{{ props.item.testUrl }}</td>
+                      <td class="text-xs-right">{{ props.item.ticketUrl }}</td>
+                      <td class="text-xs-right">{{ props.item.tesisTopic }}</td>
+                    </template>
+                  </v-data-table>
+                </v-card>
+              </v-flex>
+           </v-layout>
+          </template>
+        </v-expansion-panel-content>
+        <v-expansion-panel-content v-if="usrType==1">
+          <template v-slot:header>
+            <div>Revisores</div>
+          </template>
+          <template>
+            <v-layout text-xs-center align-start justify-center>
+              <v-flex xs12>
+                <v-card>
+                  <v-data-table class="elevation-1" :headers="headersReviser" :items="users" hide-actions>
+                    <template v-slot:items="props">
+                      <td class="text-xs-right">{{ props.item.title }}</td>
+                      <td class="text-xs-right">{{ props.item.reviser1 }}</td>
+                      <td class="text-xs-right">{{ props.item.reviser2 }}</td>
+                      <td class="text-xs-right">{{ props.item.reviser3 }}</td>
+                    </template>
+                  </v-data-table>
+                </v-card>
+              </v-flex>
+           </v-layout>
+          </template>
+        </v-expansion-panel-content>
+        <v-expansion-panel-content v-if="usrType==1">
+          <template v-slot:header>
+            <div>Descargar datos (.xlsx)</div>
+          </template>
+          <template>
+            <v-btn :loading="loading3" :disabled="loading3" color="success" class="white--text" @click="exportInscritos">
+              Inscritos 
+            <v-icon right dark>archive</v-icon>
+            </v-btn>
+            <v-btn :loading="loading3" :disabled="loading3" color="success" class="white--text" @click="exportEvaluaciones">
+              Evaluaciones 
+            <v-icon right dark>archive</v-icon>
+            </v-btn>
+          </template>
+        </v-expansion-panel-content>  
       </v-expansion-panel>
     </template>
   </v-flex>
@@ -119,10 +179,12 @@
 <script>
 import { auth ,db, storage } from '@/firebase'
 import { mapState, mapMutations } from 'vuex'
+import XLSX from 'xlsx'
 //import store from '@/store'
 
 export default {
     data: () => ({
+      usrType: 0,
       dialog: false,
       progressUpload: 0,
       fileName: '',
@@ -131,16 +193,24 @@ export default {
       uploadEnd: false,
       imgURL:'',
       downloadURL: '',
+      eval:[],
       headers: [
-        { text: 'Nombre', align: 'center', sortable: false, value: 'name'},
-        { text: 'Institución', align: 'center', sortable: false, value: 'institution'},
-        { text: 'Municipio', align: 'center', sortable: false, value: 'municipality'},
-        { text: 'Estado', align: 'center', sortable: false, value: 'state'},
-        { text: 'País', align: 'center', sortable: false, value: 'country'},
-        { text: 'Telefono', align: 'center', sortable: false, value: 'phone'},
-        { text: 'Editar', value: 'name', sortable: false }
+        { text: 'Nombre', align: 'center', sortable: false},
+        { text: 'Titulo', align: 'center', sortable: false},
+        { text: 'Correo electronico', align: 'center', sortable: false},
+        { text: 'Tesis', align: 'center', sortable: false},
+        { text: 'Acta', align: 'center', sortable: false},
+        { text: 'Comprobante', align: 'center', sortable: false},
+        { text: 'Tema', align: 'center', sortable: false},
+      ],
+      headersReviser: [
+        { text: 'Titulo', align: 'center', sortable: true},
+        { text: 'Revisor 1', align: 'center', sortable: true},
+        { text: 'Revisor 2', align: 'center', sortable: true},
+        { text: 'Revisor 3', align: 'center', sortable: true},
       ],
       user: [],
+      users: [],
       editedIndex: -1,
       editedItem: {
         name: '',
@@ -194,6 +264,28 @@ export default {
     methods: {
       ...mapMutations(['mostrarOcupado', 'ocultarOcupado', 'mostrarExito', 'mostrarError','mostrarAdvertencia']),
 
+      exportInscritos () { 
+        var excelTesis = XLSX.utils.json_to_sheet(this.users) 
+        // A workbook is the name given to an Excel file
+        var wb = XLSX.utils.book_new() // make Workbook of Excel
+        // add Worksheet to Workbook
+        // Workbook contains one or more worksheets
+        XLSX.utils.book_append_sheet(wb, excelTesis, 'tesis') // sheetAName is name of Worksheet 
+        // export Excel file
+        XLSX.writeFile(wb, 'tesis.xlsx') // name of the file is 'book.xlsx'
+      },
+
+      exportEvaluaciones () { 
+        var excelEvaluaciones = XLSX.utils.json_to_sheet(this.eval) 
+        // A workbook is the name given to an Excel file
+        var wb = XLSX.utils.book_new() // make Workbook of Excel
+        // add Worksheet to Workbook
+        // Workbook contains one or more worksheets
+        XLSX.utils.book_append_sheet(wb, excelEvaluaciones, 'evaluaciones') // sheetAName is name of Worksheet 
+        // export Excel file
+        XLSX.writeFile(wb, 'evaluaciones.xlsx') // name of the file is 'book.xlsx'
+      },
+      
       selectFile () {
         this.$refs.uploadInput.click()
       },
@@ -231,6 +323,14 @@ export default {
         })
       },
 
+      async consultarUsuario(){
+        let uid = auth.currentUser.uid
+        await db.collection('usr').doc(uid).get().then(doc => {
+         if(doc.data().usrType == 1)
+            this.usrType = 1
+        })
+      },
+
       async consultarIMG(){
         let uid = auth.currentUser.uid
         let doc = await db.collection('usr').doc(uid).get()
@@ -239,9 +339,41 @@ export default {
         this.imgURL = auxUsr.payURL
       },
 
+      async consultarEvaluaciones(){
+        let docs = await db.collection('eval').get()
+        docs.forEach(doc => {
+              this.eval.push(doc.data())
+          })
+      },  
+
+      async consultarInscritos(){
+        let docs = await db.collection('tesis').get()
+        docs.forEach(doc => {
+              this.users.push(doc.data())
+          })
+        /*this.users.forEach(doc2 => {
+          if(doc2.tesisUrl != "")
+            doc2.tesisUrl = 'Cargado'
+          else
+            doc2.tesisUrl = 'Falta'
+          if(doc2.testUrl != "")
+            doc2.testUrl = 'Cargado'
+          else
+            doc2.testUrl = 'Falta'
+          if(doc2.ticketUrl != "")
+            doc2.ticketUrl = 'Cargado' 
+          else
+            doc2.ticketUrl = 'Falta'     
+        })*/
+      },
+
       initialize () {
+        this.consultarUsuario()
         this.consultarIMG()
         this.user = []
+        this.users = []
+        this.consultarInscritos()
+        this.consultarEvaluaciones()
       },
 
       editItem (item) {
