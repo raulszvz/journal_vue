@@ -335,7 +335,6 @@
   import { mapMutations } from 'vuex'
   import uuidv4 from 'uuid/v4'
   import pdf from 'pdfvuer'
-  import nodemailer from 'nodemailer'
   //let nodemailer = require('nodemailer')
 
   export default {
@@ -722,33 +721,32 @@
       
       async evaluacion () {
         let reviserName = ''
-        let usrTesisId = ''
         this.mostrarOcupado({ titulo: 'Guardando', mensaje: 'Espere mientras guardamos su entrada...' })
         let reviserId = auth.currentUser.uid 
         await db.collection('usr').doc(reviserId).get().then(doc => {
           reviserName = doc.data().name
-          usrTesisId = doc.data().uid
         })
         let ref = this.editedItem.id
         let tesisTitle = this.editedItem.title
+        let usrTesisId = this.editedItem.uid
         try {
           let ev = {
             reviserName,
             reviserId,
             tesisTitle,
             usrTesisId,
-            1: this.uno, 
-            2: this.dos,
-            3: this.tres,
-            4: this.cuatro,
-            5: this.cinco,
-            6: this.seis,
-            7: this.siete,
-            8: this.ocho,
-            9: this.nueve,
-            10: this.diez,
-            11: this.once,
-            12: this.doce,
+            p1: this.uno, 
+            p2: this.dos,
+            p3: this.tres,
+            p4: this.cuatro,
+            p5: this.cinco,
+            p6: this.seis,
+            p7: this.siete,
+            p8: this.ocho,
+            p9: this.nueve,
+            p10: this.diez,
+            p11: this.once,
+            p12: this.doce,
             date: new Date()
         }
         await db.collection('eval').doc(ref).set(ev)

@@ -155,6 +155,35 @@
            </v-layout>
           </template>
         </v-expansion-panel-content>
+        <v-expansion-panel-content v-if="usrType==0">
+          <template v-slot:header>
+            <div>Evaluaciones</div>
+          </template>
+          <template>
+            <v-layout text-xs-center align-start justify-center>
+              <v-flex xs12>
+                <v-card>
+                  <v-data-table class="elevation-1" :headers="headersEval" :items="evalInd" hide-actions>
+                    <template v-slot:items="props">
+                      <td class="text-xs-right">{{ props.item.p1 }}</td>
+                      <td class="text-xs-right">{{ props.item.p2 }}</td>
+                      <td class="text-xs-right">{{ props.item.p3 }}</td>
+                      <td class="text-xs-right">{{ props.item.p4 }}</td>
+                      <td class="text-xs-right">{{ props.item.p5 }}</td>
+                      <td class="text-xs-right">{{ props.item.p6 }}</td>
+                      <td class="text-xs-right">{{ props.item.p7 }}</td>
+                      <td class="text-xs-right">{{ props.item.p8 }}</td>
+                      <td class="text-xs-right">{{ props.item.p9 }}</td>
+                      <td class="text-xs-right">{{ props.item.p10 }}</td>
+                      <td class="text-xs-right">{{ props.item.p11 }}</td>
+                      <td class="text-xs-right">{{ props.item.p12 }}</td>
+                    </template>
+                  </v-data-table>
+                </v-card>
+              </v-flex>
+           </v-layout>
+          </template>
+        </v-expansion-panel-content>
         <v-expansion-panel-content v-if="usrType==1">
           <template v-slot:header>
             <div>Descargar datos (.xlsx)</div>
@@ -194,6 +223,7 @@ export default {
       imgURL:'',
       downloadURL: '',
       eval:[],
+      evalInd:[],
       headers: [
         { text: 'Nombre', align: 'center', sortable: false},
         { text: 'Titulo', align: 'center', sortable: false},
@@ -208,6 +238,20 @@ export default {
         { text: 'Revisor 1', align: 'center', sortable: true},
         { text: 'Revisor 2', align: 'center', sortable: true},
         { text: 'Revisor 3', align: 'center', sortable: true},
+      ],
+      headersEval:[
+        { text: 'Pregunta central clara', align: 'center', sortable: false},
+        { text: 'Objetivo justificado', align: 'center', sortable: false},
+        { text: 'Presentación del documento', align: 'center', sortable: false},
+        { text: 'Originalidad del tema tratado', align: 'center', sortable: false},
+        { text: 'Marco teorico', align: 'center', sortable: false},
+        { text: 'Métodos', align: 'center', sortable: false},
+        { text: 'Resultados y discusión', align: 'center', sortable: false},
+        { text: 'Calidad de la tesis', align: 'center', sortable: false},
+        { text: 'Relevancía cientifica', align: 'center', sortable: false},
+        { text: '¿Existen artículos publicados derivados de la tesis?', align: 'center', sortable: false},
+        { text: '¿Es la tesis merecedora de alguno de los primeros lugares?', align: 'center', sortable: false},
+        { text: 'Observaciones', align: 'center', sortable: false},
       ],
       user: [],
       users: [],
@@ -346,6 +390,15 @@ export default {
           })
       },  
 
+      async consultarEvalInd(){
+        let uid = auth.currentUser.uid
+        let docs = await db.collection('eval').get()
+        docs.forEach(doc => {
+          if(uid == doc.data().usrTesisId)
+              this.evalInd.push(doc.data())
+          })
+      }, 
+
       async consultarInscritos(){
         let docs = await db.collection('tesis').get()
         docs.forEach(doc => {
@@ -374,6 +427,7 @@ export default {
         this.users = []
         this.consultarInscritos()
         this.consultarEvaluaciones()
+        this.consultarEvalInd()
       },
 
       editItem (item) {
